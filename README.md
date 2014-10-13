@@ -11,7 +11,7 @@ Requirements
 Usage
 ------------
 
-### Create API clent class
+### Create API client class
 
 ``` java
 
