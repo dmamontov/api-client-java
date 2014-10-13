@@ -29,8 +29,9 @@ Constructor arguments are:
 
 ``` java
 
+Map <?, ?> orderTypes;
 try {
-    Map <?, ?> orderTypes = crmApiClient.orderTypesList();
+    orderTypes = crmApiClient.orderTypesList();
 } catch (ApiClientException e) {
     e.printStackTrace();
 }
