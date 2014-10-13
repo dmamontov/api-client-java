@@ -31,8 +31,7 @@ Constructor arguments are:
 
 try {
     Map <?, ?> orderTypes = crmApiClient.orderTypesList();
-}
-catch (ApiClientException e) {
+} catch (ApiClientException e) {
     e.printStackTrace();
 }
 
