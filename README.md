@@ -16,8 +16,8 @@ Usage
 ``` java
 
 ApiClient crmApiClient = new ApiClient(
-    'https://demo.intarocrm.ru',
-    'T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH'
+    "https://demo.intarocrm.ru",
+    "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH"
 );
 ```
 Constructor arguments are:
