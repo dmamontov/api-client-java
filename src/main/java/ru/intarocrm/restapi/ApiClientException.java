@@ -12,4 +12,8 @@ public class ApiClientException extends Exception {
         super(text, innerEx);
     }
 
+    public ApiClientException(Exception innerEx) {
+        super(innerEx);
+    }
+
 }

@@ -1,6 +1,5 @@
 package ru.intarocrm.restapi;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -602,7 +601,7 @@ public class ApiClient {
         try {
             urlParameters = httpBuildQuery(parameters);
         } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
+        	throw new ApiClientException(e1);
         }
 
         if (method.equals( (String) "GET" ) && !isEmpty( parameters )) {
@@ -613,20 +612,20 @@ public class ApiClient {
         try {
             object = new URL(url);
         } catch (MalformedURLException e1) {
-            e1.printStackTrace();
+        	throw new ApiClientException(e1);
         }
 
         HttpsURLConnection connect = null;
         try {
             connect = (HttpsURLConnection) object.openConnection();
         } catch (IOException e1) {
-           e1.printStackTrace();
+        	throw new ApiClientException(e1);
         }
 
         try {
             connect.setRequestMethod(method);
         } catch (ProtocolException e1) {
-            e1.printStackTrace();
+        	throw new ApiClientException(e1);
         }
         connect.setRequestProperty("User-Agent", userAgent);
 
@@ -641,7 +640,7 @@ public class ApiClient {
                 wr.flush();
                 wr.close();
             } catch (IOException e) {
-                e.printStackTrace();
+            	throw new ApiClientException(e);
             }
             
         }
@@ -650,7 +649,7 @@ public class ApiClient {
         try {
             statusCode = connect.getResponseCode();
         } catch (IOException e3) {
-            e3.printStackTrace();
+        	throw new ApiClientException(e3);
         }
 
         BufferedReader in = null;
@@ -669,7 +668,7 @@ public class ApiClient {
             }
             in.close();
         } catch (IOException e1) {
-            e1.printStackTrace();
+        	throw new ApiClientException(e1);
         }
 
         parameters.clear();
@@ -678,7 +677,7 @@ public class ApiClient {
         try {
             data = jsonDecode(response.toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+        	throw new ApiClientException(e);
         }
 
         if(data.containsKey("generatedAt")){
@@ -686,7 +685,7 @@ public class ApiClient {
             try {
                 generatedAt = simpleDateFormat.parse(data.get("generatedAt").toString());
             } catch (java.text.ParseException e) {
-                e.printStackTrace();
+                throw new ApiClientException(e);
             }
             data.remove("generatedAt");
         }
