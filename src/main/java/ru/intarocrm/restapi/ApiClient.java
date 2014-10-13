@@ -6,6 +6,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -49,9 +51,9 @@ public class ApiClient {
      * @param String id - идентификатор заказа
      * @param String by - поиск заказа по id или externalId
      * @return Map<?, ?> - информация о заказе
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderGet(int id, String by) throws IOException {
+    public Map<?, ?> orderGet(int id, String by) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "orders/" + Integer.toString(id);
         if (by.equals( (String) "externalId" )) {
@@ -67,9 +69,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> order- информация о заказе
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderCreate(Map<?, ?> order) throws IOException {
+    public Map<?, ?> orderCreate(Map<?, ?> order) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(order);
         parameters.put("order", dataJson);
@@ -84,9 +86,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> order- информация о заказе
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderEdit(Map<?, ?> order) throws IOException {
+    public Map<?, ?> orderEdit(Map<?, ?> order) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(order);
         parameters.put("order", dataJson);
@@ -101,9 +103,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> orders - массив заказов
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderUpload(Map<?, ?> orders) throws IOException {
+    public Map<?, ?> orderUpload(Map<?, ?> orders) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(orders);
         parameters.put("orders", dataJson);
@@ -122,9 +124,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> orders- массив, содержащий id и externalId заказа
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderFixExternalIds(Map<?, ?> orders) throws IOException {
+    public Map<?, ?> orderFixExternalIds(Map<?, ?> orders) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(orders);
         parameters.put("orders", dataJson);
@@ -140,9 +142,9 @@ public class ApiClient {
      * @param int id - идентификатор заказа
      * @param String by - поиск заказа по id или externalId
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderDelete(int id, String by) throws IOException {
+    public Map<?, ?> orderDelete(int id, String by) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "orders/" + Integer.toString(id) + "/delete";
         if (by.equals( (String) "externalId" )) {
@@ -161,9 +163,9 @@ public class ApiClient {
      * @param int limit - ограничение на размер выборки
      * @param int offset - сдвиг
      * @return Map<?, ?> result - массив заказов
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderHistory(Date startDate, Date endDate, int limit, int offset) throws IOException {
+    public Map<?, ?> orderHistory(Date startDate, Date endDate, int limit, int offset) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "orders/history";
         parameters.put( "startDate", startDate.toString() );
@@ -181,9 +183,9 @@ public class ApiClient {
      * @param String id - идентификатор
      * @param String by - поиск заказа по id или externalId
      * @return Map<?, ?> result - информация о клиенте
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerGet(String id, String by) throws IOException {
+    public Map<?, ?> customerGet(String id, String by) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "customers/" + id;
         if (by.equals( (String) "externalId" )) {
@@ -203,9 +205,9 @@ public class ApiClient {
      * @param int limit - ограничение на размер выборки
      * @param int offset - сдвиг
      * @return Map<?, ?> result - массив клиентов
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customers(String phone, String email, String fio, int limit, int offset) throws IOException {
+    public Map<?, ?> customers(String phone, String email, String fio, int limit, int offset) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "customers";
         parameters.put( "phone", phone );
@@ -223,9 +225,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> customer - информация о клиенте
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerCreate(Map<?, ?> customer) throws IOException {
+    public Map<?, ?> customerCreate(Map<?, ?> customer) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(customer);
         parameters.put("customer", dataJson);
@@ -240,9 +242,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> customer - информация о клиенте
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerEdit(Map<?, ?> customer) throws IOException {
+    public Map<?, ?> customerEdit(Map<?, ?> customer) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(customer);
         parameters.put("customer", dataJson);
@@ -257,9 +259,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> customers - массив клиентов
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerUpload(Map<?, ?> customers) throws IOException {
+    public Map<?, ?> customerUpload(Map<?, ?> customers) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(customers);
         parameters.put("customers", dataJson);
@@ -278,9 +280,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> customers- массив, содержащий id и externalId заказа
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerFixExternalIds(Map<?, ?> customers) throws IOException {
+    public Map<?, ?> customerFixExternalIds(Map<?, ?> customers) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(customers);
         parameters.put("customers", dataJson);
@@ -296,9 +298,9 @@ public class ApiClient {
      * @param String id - идентификатор
      * @param String by - поиск заказа по id или externalId
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerDelete(String id, String by) throws IOException {
+    public Map<?, ?> customerDelete(String id, String by) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "customers/" + id + "/delete";
         if (by.equals( (String) "externalId" )) {
@@ -319,9 +321,9 @@ public class ApiClient {
      * @param int limit - ограничение на размер выборки
      * @param int offset - сдвиг
      * @return Map<?, ?> result - массив заказов
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> customerOrdersList(String id, Date startDate, Date endDate, int limit, int offset, String by) throws IOException {
+    public Map<?, ?> customerOrdersList(String id, Date startDate, Date endDate, int limit, int offset, String by) throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "customers/" + id + "/orders";
         if (by.equals( (String) "externalId" )) {
@@ -340,9 +342,9 @@ public class ApiClient {
      * Получение списка типов доставки
      *
      * @return Map<?, ?> result - массив типов доставки
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> deliveryTypesList() throws IOException {
+    public Map<?, ?> deliveryTypesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/delivery-types";
         result = request(url, "GET");
@@ -355,9 +357,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> deliveryType - информация о типе доставки
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> deliveryTypeEdit(Map<?, ?> deliveryType) throws IOException {
+    public Map<?, ?> deliveryTypeEdit(Map<?, ?> deliveryType) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(deliveryType);
         parameters.put("deliveryType", dataJson);
@@ -371,9 +373,9 @@ public class ApiClient {
      * Получение списка служб доставки
      *
      * @return Map<?, ?> result - массив типов доставки
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> deliveryServicesList() throws IOException {
+    public Map<?, ?> deliveryServicesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/delivery-services";
         result = request(url, "GET");
@@ -386,9 +388,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> deliveryService - информация о типе доставки
      * @return Map<?, ?> result
-     * @throws IOException
+     * @throws ApiClientException
      */
-    public Map<?, ?> deliveryServiceEdit(Map<?, ?> deliveryService) throws IOException {
+    public Map<?, ?> deliveryServiceEdit(Map<?, ?> deliveryService) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(deliveryService);
         parameters.put("deliveryService", dataJson);
@@ -402,9 +404,9 @@ public class ApiClient {
      * Получение списка типов оплаты
      *
      * @return Map<?, ?> result - массив типов оплаты
-     * @throws IOException
+     * @throws ApiClientException
      */
-    public Map<?, ?> paymentTypesList() throws IOException {
+    public Map<?, ?> paymentTypesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/payment-types";
         result = request(url, "GET");
@@ -417,9 +419,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> paymentType - информация о типе оплаты
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> paymentTypesEdit(Map<?, ?> paymentType) throws IOException {
+    public Map<?, ?> paymentTypesEdit(Map<?, ?> paymentType) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(paymentType);
         parameters.put("paymentType", dataJson);
@@ -433,9 +435,9 @@ public class ApiClient {
      * Получение списка статусов оплаты
      *
      * @return Map<?, ?> result - массив статусов оплаты
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> paymentStatusesList() throws IOException {
+    public Map<?, ?> paymentStatusesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/payment-statuses";
         result = request(url, "GET");
@@ -448,9 +450,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> paymentStatus - информация о статусе оплаты
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> paymentStatusesEdit(Map<?, ?> paymentStatus) throws IOException {
+    public Map<?, ?> paymentStatusesEdit(Map<?, ?> paymentStatus) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(paymentStatus);
         parameters.put("paymentStatus", dataJson);
@@ -464,9 +466,9 @@ public class ApiClient {
      * Получение списка типов заказа
      *
      * @return Map<?, ?> result - массив типов заказа
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderTypesList() throws IOException {
+    public Map<?, ?> orderTypesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/order-types";
         result = request(url, "GET");
@@ -479,9 +481,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> orderType - информация о типе заказа
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderTypesEdit(Map<?, ?> orderType) throws IOException {
+    public Map<?, ?> orderTypesEdit(Map<?, ?> orderType) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(orderType);
         parameters.put("orderType", dataJson);
@@ -495,9 +497,9 @@ public class ApiClient {
      * Получение списка способов оформления заказа
      *
      * @return Map<?, ?> result - массив способов оформления заказа
-     * @throws IOException
+     * @throws ApiClientException
      */
-    public Map<?, ?> orderMethodsList() throws IOException {
+    public Map<?, ?> orderMethodsList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/order-methods";
         result = request(url, "GET");
@@ -510,9 +512,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> orderMethod - информация о способе оформления заказа
      * @return Map<?, ?> result
-     * @throws IOException
+     * @throws ApiClientException
      */
-    public Map<?, ?> orderMethodsEdit(Map<?, ?> orderMethod) throws IOException {
+    public Map<?, ?> orderMethodsEdit(Map<?, ?> orderMethod) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(orderMethod);
         parameters.put("orderMethod", dataJson);
@@ -526,9 +528,9 @@ public class ApiClient {
      * Получение списка статусов заказа
      *
      * @return Map<?, ?> result - массив статусов заказа
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderStatusesList() throws IOException {
+    public Map<?, ?> orderStatusesList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/statuses";
         result = request(url, "GET");
@@ -541,9 +543,9 @@ public class ApiClient {
      *
      * @param Map<?, ?> status - информация о статусе заказа
      * @return Map<?, ?> result
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderStatusEdit(Map<?, ?> status) throws IOException {
+    public Map<?, ?> orderStatusEdit(Map<?, ?> status) throws ApiClientException {
         Map<?, ?> result = null;
         String dataJson = jsonEncode(status);
         parameters.put("status", dataJson);
@@ -557,9 +559,9 @@ public class ApiClient {
      * Получение списка групп статусов заказа
      *
      * @return Map<?, ?> result - массив групп статусов заказа
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> orderStatusGroupsList() throws IOException {
+    public Map<?, ?> orderStatusGroupsList() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "reference/status-groups";
         result = request(url, "GET");
@@ -571,9 +573,9 @@ public class ApiClient {
      * Обновление статистики
      *
      * @return Map<?, ?> result - статус вып обновления
-     * @throws IOException 
+     * @throws ApiClientException 
      */
-    public Map<?, ?> statisticUpdate() throws IOException {
+    public Map<?, ?> statisticUpdate() throws ApiClientException {
         Map<?, ?> result = null;
         String url = apiUrl + "statistic/update";
         result = request(url, "GET");
@@ -592,43 +594,83 @@ public class ApiClient {
      * @param String url
      * @param String method
      * @return Map<?, ?>
-     * @throws IOException 
+     * @throws ApiClientException
      */
-    protected Map<?, ?> request(String url, String method) throws IOException{
+    protected Map<?, ?> request(String url, String method) throws ApiClientException {
         Map<?, ?> data = null;
-        String urlParameters = httpBuildQuery(parameters);
+        String urlParameters = null;
+        try {
+            urlParameters = httpBuildQuery(parameters);
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
 
         if (method.equals( (String) "GET" ) && !isEmpty( parameters )) {
             url += "?" + urlParameters;
         }
 
-        URL object = new URL(url);
-        HttpsURLConnection connect = (HttpsURLConnection) object.openConnection();
+        URL object = null;
+        try {
+            object = new URL(url);
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        }
 
-        connect.setRequestMethod(method);
+        HttpsURLConnection connect = null;
+        try {
+            connect = (HttpsURLConnection) object.openConnection();
+        } catch (IOException e1) {
+           e1.printStackTrace();
+        }
+
+        try {
+            connect.setRequestMethod(method);
+        } catch (ProtocolException e1) {
+            e1.printStackTrace();
+        }
         connect.setRequestProperty("User-Agent", userAgent);
 
         if (method.equals( (String) "POST" )) {
             connect.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
             connect.setDoOutput(true);
 
-            DataOutputStream wr = new DataOutputStream(connect.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
+            DataOutputStream wr;
+            try {
+                wr = new DataOutputStream(connect.getOutputStream());
+                wr.writeBytes(urlParameters);
+                wr.flush();
+                wr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
         }
 
-        //int statusCode = connect.getResponseCode();
+        int statusCode = 0;
+        try {
+            statusCode = connect.getResponseCode();
+        } catch (IOException e3) {
+            e3.printStackTrace();
+        }
 
-        BufferedReader in = new BufferedReader( new InputStreamReader(connect.getInputStream()) );
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader( new InputStreamReader(connect.getInputStream()) );
+        } catch (IOException e2) {
+            in = new BufferedReader( new InputStreamReader(connect.getErrorStream()) );
+        }
 
         String inputLine;
         StringBuffer response = new StringBuffer();
 
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        try {
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
-        in.close();
 
         parameters.clear();
         parameters.put( "apiKey", apiKey );
@@ -648,6 +690,11 @@ public class ApiClient {
             }
             data.remove("generatedAt");
         }
+        
+        String success = data.get("success").toString();
+        if (statusCode >= 400 || data.containsKey("success") && success.equals( (String) "false" )) {
+            throw new ApiClientException(getErrorMessage(data));
+        }
 
         data.remove("success");
 
@@ -656,6 +703,49 @@ public class ApiClient {
         }
 
         return data;
+    }
+
+    /**
+     * @param Map<?, ?> data
+     * @return String error
+     */
+    protected String getErrorMessage(Map<?, ?> data) {
+        String error = "";
+
+        if (data.containsKey("message")) {
+        	error = data.get("message").toString();
+        } else if(data.containsKey("0")){
+            Map <?, ?> subStr = (Map<?, ?>) data.get("0");
+            error = subStr.get("message").toString();
+        } else if(data.containsKey("errorMsg")) {
+        	error = data.get("errorMsg").toString();
+        } else if(data.containsKey("error")) {
+            Map <?, ?> subStr = (Map<?, ?>) data.get("error");
+            if (subStr.containsKey("message")) {
+            	error = subStr.get("message").toString();
+            }
+        } 
+
+        if (data.containsKey("errors")) {
+            Map <?,?> subErrors = (Map<?, ?>) data.get("errors");
+            if (subErrors.size() > 1) {
+            	Set<?> set = subErrors.entrySet();
+                Iterator<?> interator = set.iterator();
+                while (interator.hasNext()) {
+                    @SuppressWarnings("rawtypes")
+                    Map.Entry mapEntry = (Map.Entry) interator.next();
+                    String value = mapEntry.getValue().toString();
+
+                    error += ". " + value;
+                }
+            }
+        }
+
+        if (isEmpty(error)) {
+            return "Application Error";
+        }
+
+        return error;
     }
 
     /**
