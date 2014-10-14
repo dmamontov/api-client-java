@@ -15,7 +15,7 @@ Usage
 
 ``` java
 
-ApiClient crmApiClient = new ApiClient(
+RestApi crmApiClient = new RestApi(
     "https://demo.intarocrm.ru",
     "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH"
 );
@@ -29,10 +29,13 @@ Constructor arguments are:
 
 ``` java
 
+String url, key;
 Map <?, ?> orderTypes;
+
+RestApi crmApiClient = new RestApi(url, key);
 try {
     orderTypes = crmApiClient.orderTypesList();
-} catch (ApiClientException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 
