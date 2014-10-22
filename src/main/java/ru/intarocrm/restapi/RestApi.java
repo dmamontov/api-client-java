@@ -136,25 +136,6 @@ public class RestApi {
     }
 
     /**
-     * Удаление заказа
-     *
-     * @param int id - идентификатор заказа
-     * @param String by - поиск заказа по id или externalId
-     * @return Map<?, ?> result
-     * @throws ApiException 
-     */
-    public Map<?, ?> orderDelete(int id, String by) throws ApiException {
-        Map<?, ?> result = null;
-        String url = apiUrl + "orders/" + Integer.toString(id) + "/delete";
-        if (by.equals( (String) "externalId" )) {
-            parameters.put( "by", by );
-        }
-        result = request(url, "POST");
-
-        return result;
-    }
-
-    /**
      * Получение последних измененных заказов
      *
      * @param Date startDate - начальная дата выборки
@@ -286,25 +267,6 @@ public class RestApi {
         String dataJson = jsonEncode(customers);
         parameters.put("customers", dataJson);
         String url = apiUrl + "customers/fix-external-ids";
-        result = request(url, "POST");
-
-        return result;
-    }
-
-    /**
-     * Удаление клиента
-     *
-     * @param String id - идентификатор
-     * @param String by - поиск заказа по id или externalId
-     * @return Map<?, ?> result
-     * @throws ApiException 
-     */
-    public Map<?, ?> customerDelete(String id, String by) throws ApiException {
-        Map<?, ?> result = null;
-        String url = apiUrl + "customers/" + id + "/delete";
-        if (by.equals( (String) "externalId" )) {
-            parameters.put( "by", by );
-        }
         result = request(url, "POST");
 
         return result;
