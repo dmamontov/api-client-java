@@ -1,7 +1,7 @@
-IntaroCRM REST API client for Java
+RetailCRM REST API client for Java
 ==================================
 
-Java Client for [IntaroCRM REST API](http://docs.intarocrm.ru/rest-api/).
+Java Client for [RetailCRM REST API](http://www.retailcrm.ru/docs/rest-api/index.html).
 version: 3.0.1
 
 Requirements
