@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ru.retailcrm.apiclient</groupId>
+  <artifactId>RetailCRM.ApiClient</artifactId>
+  <version>3.0.2</version>
+  <name>RetailCRM ApiClient</name>
+  <url>https://github.com/retailcrm/api-client-java</url>
+  <description>Java-клиент для работы с retailCRM API.
+
+Рекомендуем обращаться к документации по библиотеке, в частности по классу RetailCrm\ApiClient.</description>
+    <properties>
+        <java.version>1.7</java.version>
+        <github.global.server>github</github.global.server>
+        <github.maven-plugin>0.12</github.maven-plugin>
+    </properties>
+    <distributionManagement>
+        <repository>
+            <id>retailcrm.repo</id>
+            <name>RetailCRM Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+           <artifactId>maven-deploy-plugin</artifactId>
+           <version>2.8.1</version>
+           <configuration>
+               <altDeploymentRepository>retailcrm.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+           </configuration>
+      </plugin>
+      <plugin>
+             <groupId>com.github.github</groupId>
+             <artifactId>site-maven-plugin</artifactId>
+             <version>${github.maven-plugin}</version>
+             <configuration>
+                 <message>Maven artifacts for ${project.version}</message>
+                 <noJekyll>true</noJekyll>
+                 <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                 <branch>refs/heads/mvn-repo</branch>
+                 <includes><include>**/*</include></includes>
+                 <repositoryName>api-client-java</repositoryName>
+                 <repositoryOwner>dmamontov</repositoryOwner>
+             </configuration>
+             <executions>
+                 <execution>
+                     <goals>
+                         <goal>site</goal>
+                     </goals>
+                     <phase>deploy</phase>
+                 </execution>
+             </executions>
+         </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+        <groupId>org.json.simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>1.1.1</version>
+        <type>pom.lastUpdated</type>
+    </dependency>
+  </dependencies>
+  <licenses>
+    <license>
+        <name>The MIT License (MIT)</name>
+        <url>https://github.com/retailcrm/api-client-java/blob/master/LICENSE</url>
+        <distribution>repo</distribution>
+        <comments>Copyright (c) 2015 RetailDriver LLC</comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>RetailCRM</name>
+    <url>http://www.retailcrm.ru</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>dmamontov</id>
+      <name>Dmitry Mamontov</name>
+      <email>intaro@slobel.ru</email>
+      <url>https://github.com/dmamontov</url>
+      <organization>RetailCRM</organization>
+      <organizationUrl>http://www.retailcrm.ru</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Moscow</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Dmitry Mamontov</name>
+      <email>intaro@slobel.ru</email>
+      <url>https://github.com/dmamontov</url>
+      <organization>RetailCRM</organization>
+      <organizationUrl>http://www.retailcrm.ru</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Moscow</timezone>
+      <properties>
+        <gtalk>d.slonyara@gmail.com</gtalk>
+      </properties>
+    </contributor>
+  </contributors>
+</project>
