@@ -20,7 +20,7 @@ public class Client {
 
     public final static String METHOD_GET = "GET";
     public final static String METHOD_POST = "POST";
-    public final static String USER_AGENT = "POST";
+    public final static String USER_AGENT = "Mozilla/5.0";
 
     protected String url;
     protected Map<String, Object> defaultParameter;
