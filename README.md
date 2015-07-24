@@ -9,8 +9,8 @@ version: 3.0.2
 -----------------------
 * [json-simple](https://code.google.com/p/json-simple/)
 
-Установка через
----------------
+Установка через Maven
+---------------------
 В pom.xml своего проекта добавляем репозиторий:
 ``` xml
 <repositories>
